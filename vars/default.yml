@@ -1,0 +1,11 @@
+---
+mysql_root_password: "P@ssw0rd"
+http_host: "lamp.sitointest.it"
+http_conf: "lamp.sitointest.it"
+http_port: "80"
+sshd_permit_root_login: true
+disable_default: true
+project_repo: "git@github.com:drnic/php-helloworld.git"
+project_branch: "master"
+sshd_password_authentication: true
+vault_become_password: "password"

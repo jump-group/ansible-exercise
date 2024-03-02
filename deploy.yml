@@ -1,0 +1,24 @@
+# yaml-language-server: $schema='none'
+
+---
+- name: Clone Repository
+  hosts: web:&{{ env }}
+  vars_files:
+    - vars/default.yml
+    - vars/users.yml
+  gather_facts: false
+  remote_user: "{{ web_user }}"
+  tasks:
+
+    - name: Remove old repository
+      file:
+        path: "/var/www/{{ http_host }}/giada"
+        state: absent
+
+    - name: Clone repository
+      git:
+        repo: "{{ project_repo }}"
+        dest: "/var/www/{{ http_host }}/giada"
+        version: "{{ project_branch }}"
+        accept_hostkey: yes
+

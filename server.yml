@@ -1,0 +1,25 @@
+---
+- import_playbook: variable-check.yml
+  vars:
+    playbook: server.yml
+
+- name: Test Connection and Determine Remote User
+  hosts: web:&{{ env }}
+  gather_facts: false
+  vars_files:
+    - vars/default.yml
+    - vars/users.yml
+  roles:
+    - { role: connection, tags: [connection, always] }
+
+- name: Provision server
+  hosts: web:&{{ env }}
+  become: true
+  remote_user: "{{ admin_user }}"
+  vars_files:
+    - vars/default.yml
+    - vars/users.yml
+  roles:
+    - { role: users, tags: [users, always] }
+    - { role: apache, tags: [apache, always] }
+    - { role: mariadb, tags: [mariadb, always] }

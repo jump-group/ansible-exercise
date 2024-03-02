@@ -1,0 +1,13 @@
+all:
+  hosts:
+    staging:
+      ansible_host: ip
+      ansible_user: root
+      ansible_ssh_pass: "password"
+  children:
+    staging:
+      hosts:
+        staging:
+    web:
+      hosts:
+        staging:
